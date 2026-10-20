@@ -135,6 +135,9 @@ function renderOverviewTab() {
   (theme.colorPalette || []).forEach(color => {
     const box = document.createElement('div');
     box.className = 'swatch-box';
+    box.setAttribute('role', 'button');
+    box.setAttribute('tabindex', '0');
+    box.setAttribute('aria-label', `Color ${color.name}, hex code ${color.hex}. Press Enter or click to copy.`);
     box.title = `Click to copy ${color.hex}: ${color.usage || ''}`;
     box.innerHTML = `
       <div class="swatch-color" style="background-color: ${color.hex};"></div>
@@ -143,10 +146,20 @@ function renderOverviewTab() {
         <div class="swatch-hex">${color.hex}</div>
       </div>
     `;
-    box.addEventListener('click', () => {
+
+    const copyColor = () => {
       navigator.clipboard.writeText(color.hex);
       showToast(`Copied ${color.hex} (${color.name}) to clipboard!`);
+    };
+
+    box.addEventListener('click', copyColor);
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        copyColor();
+      }
     });
+
     paletteContainer.appendChild(box);
   });
 
@@ -418,16 +431,47 @@ function renderCreativeTab() {
 
 // TAB NAVIGATION & LISTENERS
 function initEventListeners() {
-  // Tabs
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  // Tabs with Full ARIA & Keyboard Navigation
+  const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+  tabButtons.forEach((btn, index) => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      tabButtons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+        b.setAttribute('tabindex', '-1');
+      });
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      btn.setAttribute('tabindex', '0');
+
       const targetId = btn.getAttribute('data-tab');
       const targetContent = document.getElementById(targetId);
-      if (targetContent) targetContent.classList.add('active');
+      if (targetContent) {
+        targetContent.classList.add('active');
+        targetContent.focus();
+      }
+    });
+
+    // Arrow Key Navigation across tabs (WCAG standard)
+    btn.addEventListener('keydown', (e) => {
+      let nextIndex = null;
+      if (e.key === 'ArrowRight') {
+        nextIndex = (index + 1) % tabButtons.length;
+      } else if (e.key === 'ArrowLeft') {
+        nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+      } else if (e.key === 'Home') {
+        nextIndex = 0;
+      } else if (e.key === 'End') {
+        nextIndex = tabButtons.length - 1;
+      }
+
+      if (nextIndex !== null) {
+        e.preventDefault();
+        tabButtons[nextIndex].focus();
+        tabButtons[nextIndex].click();
+      }
     });
   });
 
@@ -704,12 +748,21 @@ async function handleCopilotMessage(userMessage) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// MODALS INITIALIZATION
+// MODALS INITIALIZATION (Accessible Dialogs with Focus Management)
 function initModals() {
+  function openAccessibleModal(modal) {
+    if (!modal) return;
+    modal.showModal();
+    const firstInput = modal.querySelector('input:not([type="hidden"]), select, textarea, button:not([data-close-modal])');
+    if (firstInput) {
+      setTimeout(() => firstInput.focus(), 50);
+    }
+  }
+
   // Wizard Modal
   const modalWizard = document.getElementById('modal-wizard');
   document.getElementById('btn-new-event').addEventListener('click', () => {
-    modalWizard.showModal();
+    openAccessibleModal(modalWizard);
   });
 
   // Settings Modal
@@ -717,12 +770,25 @@ function initModals() {
   document.getElementById('btn-open-settings').addEventListener('click', () => {
     document.getElementById('settings-api-key').value = AIService.getCustomApiKey();
     document.getElementById('settings-model').value = AIService.getSelectedModel();
-    modalSettings.showModal();
+    openAccessibleModal(modalSettings);
   });
 
-  // Close modals
+  // Close modals on backdrop click or close button
+  document.querySelectorAll('dialog.custom-modal').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      const rect = modal.getBoundingClientRect();
+      const isInDialog = (
+        rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+      );
+      if (!isInDialog) {
+        modal.close();
+      }
+    });
+  });
+
   document.querySelectorAll('[data-close-modal]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const modalId = btn.getAttribute('data-close-modal');
       const modal = document.getElementById(modalId);
       if (modal) modal.close();
@@ -843,7 +909,9 @@ function openVendorRFPModal(idx) {
   document.getElementById('rfp-specifics').value = vendor.keyQuestions || '';
   document.getElementById('rfp-result-wrap').style.display = 'none';
 
-  document.getElementById('modal-rfp').showModal();
+  const modalRfp = document.getElementById('modal-rfp');
+  modalRfp.showModal();
+  setTimeout(() => document.getElementById('rfp-specifics').focus(), 50);
 }
 
 // UTILITY HELPERS

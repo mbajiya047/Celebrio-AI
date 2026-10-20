@@ -4,28 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Celebrio AI — Intelligent GenAI Celebration & Event Planner</title>
+  <meta name="description" content="AI-powered planning director for weddings, birthdays, and community festivals with budgets, timelines, and vendor RFPs.">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 </head>
 <body>
 
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <!-- Top App Navigation Bar -->
-  <header class="app-header">
+  <header class="app-header" role="banner">
     <div class="header-container">
       <div class="brand-section">
-        <span class="brand-logo">✨</span>
+        <span class="brand-logo" aria-hidden="true">✨</span>
         <div>
           <div style="display: flex; align-items: center; gap: 0.5rem;">
             <h1 class="brand-title">Celebrio AI</h1>
-            <span class="brand-badge">Gemini Powered</span>
+            <span class="brand-badge" aria-label="Powered by Google Gemini">Gemini Powered</span>
           </div>
-          <p style="font-size: 0.75rem; color: #cbd5e1; margin-top: 2px;">Celebration & Event Planning Co-Pilot</p>
+          <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 2px;">Celebration & Event Planning Co-Pilot</p>
         </div>
       </div>
 
       <!-- Event Selector -->
       <div class="event-selector-wrap">
-        <span class="event-selector-label">Active Plan:</span>
+        <label for="event-select" class="event-selector-label">Active Plan:</label>
         <select id="event-select" class="event-select" aria-label="Select Active Event Plan">
           <!-- Dynamically populated -->
         </select>
@@ -33,50 +37,50 @@
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <button id="btn-new-event" class="btn btn-primary" title="Create a new event plan using Gemini AI">
-          <span>✨</span> New Event Wizard
+        <button id="btn-new-event" class="btn btn-primary" title="Create a new event plan using Gemini AI" aria-haspopup="dialog">
+          <span aria-hidden="true">✨</span> New Event Wizard
         </button>
         <button id="btn-export-pdf" class="btn btn-secondary" title="Export as clean printable Event Master Binder">
-          <span>🖨️</span> Export PDF / Print
+          <span aria-hidden="true">🖨️</span> Export PDF / Print
         </button>
-        <button id="btn-open-settings" class="btn btn-secondary" title="API Settings & Model Selection">
-          <span>⚙️</span> Settings
+        <button id="btn-open-settings" class="btn btn-secondary" title="API Settings & Model Selection" aria-haspopup="dialog">
+          <span aria-hidden="true">⚙️</span> Settings
         </button>
       </div>
     </div>
   </header>
 
   <!-- Main Application Body -->
-  <main class="main-wrapper">
+  <main class="main-wrapper" id="main-content" role="main" tabindex="-1">
 
     <!-- Active Event Hero Banner -->
-    <section class="event-hero-card" id="event-hero">
+    <section class="event-hero-card" id="event-hero" aria-label="Active Event Summary">
       <div class="hero-content">
         <div class="hero-main">
-          <span class="hero-type-tag" id="hero-type">Wedding</span>
+          <span class="hero-type-tag" id="hero-type" aria-label="Event Type">Wedding</span>
           <h2 class="hero-title" id="hero-title">Loading Event Plan...</h2>
           <p class="hero-tagline" id="hero-tagline">Preparing your personalized celebration blueprint...</p>
           <div class="hero-meta-strip">
-            <span class="meta-item"><span>📅</span> <strong id="hero-date">Sept 18, 2026</strong></span>
-            <span class="meta-item"><span>📍</span> <span id="hero-location">Sonoma, CA</span></span>
-            <span class="meta-item"><span>👥</span> <strong id="hero-guests">110 Guests</strong></span>
-            <span class="meta-item"><span>💰</span> <strong id="hero-budget">$38,000 Total Budget</strong></span>
+            <span class="meta-item"><span aria-hidden="true">📅</span> <strong id="hero-date">Sept 18, 2026</strong></span>
+            <span class="meta-item"><span aria-hidden="true">📍</span> <span id="hero-location">Sonoma, CA</span></span>
+            <span class="meta-item"><span aria-hidden="true">👥</span> <strong id="hero-guests">110 Guests</strong></span>
+            <span class="meta-item"><span aria-hidden="true">💰</span> <strong id="hero-budget">$38,000 Total Budget</strong></span>
           </div>
         </div>
         <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
           <div style="background: var(--primary-light); padding: 0.5rem 1rem; border-radius: var(--radius-md); text-align: center;">
-            <div style="font-size: 0.72rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">Countdown</div>
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">Countdown</div>
             <div id="hero-countdown" style="font-size: 1.5rem; font-weight: 800; color: var(--primary-hover);">-- Days</div>
           </div>
-          <button id="btn-edit-active-event" class="btn btn-outline btn-sm">✏️ Edit Details</button>
+          <button id="btn-edit-active-event" class="btn btn-outline btn-sm" aria-label="Edit Active Event Details">✏️ Edit Details</button>
         </div>
       </div>
     </section>
 
     <!-- Key Metrics Ribbon -->
-    <section class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-icon-box metric-icon-purple">📅</div>
+    <section class="metrics-grid" aria-label="Key Performance Indicators">
+      <div class="metric-card" role="region" aria-label="Timeline Status Metric">
+        <div class="metric-icon-box metric-icon-purple" aria-hidden="true">📅</div>
         <div class="metric-data">
           <div class="metric-label">Timeline Status</div>
           <div class="metric-value" id="metric-countdown">-- Days</div>
@@ -84,8 +88,8 @@
         </div>
       </div>
 
-      <div class="metric-card">
-        <div class="metric-icon-box metric-icon-pink">💰</div>
+      <div class="metric-card" role="region" aria-label="Budget Status Metric">
+        <div class="metric-icon-box metric-icon-pink" aria-hidden="true">💰</div>
         <div class="metric-data">
           <div class="metric-label">Budget Allocated</div>
           <div class="metric-value" id="metric-budget-spent">$0</div>
@@ -93,8 +97,8 @@
         </div>
       </div>
 
-      <div class="metric-card">
-        <div class="metric-icon-box metric-icon-green">✅</div>
+      <div class="metric-card" role="region" aria-label="Milestones Progress Metric">
+        <div class="metric-icon-box metric-icon-green" aria-hidden="true">✅</div>
         <div class="metric-data">
           <div class="metric-label">Milestones Done</div>
           <div class="metric-value" id="metric-milestones-progress">0%</div>
@@ -102,8 +106,8 @@
         </div>
       </div>
 
-      <div class="metric-card">
-        <div class="metric-icon-box metric-icon-amber">🤝</div>
+      <div class="metric-card" role="region" aria-label="Vendor Confirmation Metric">
+        <div class="metric-icon-box metric-icon-amber" aria-hidden="true">🤝</div>
         <div class="metric-data">
           <div class="metric-label">Confirmed Vendors</div>
           <div class="metric-value" id="metric-vendors-count">0 / 0</div>
@@ -113,17 +117,17 @@
     </section>
 
     <!-- Navigation Tabs -->
-    <nav class="tabs-navigation" role="tablist">
-      <button class="tab-btn active" data-tab="tab-overview" role="tab">📋 Overview & Moodboard</button>
-      <button class="tab-btn" data-tab="tab-budget" role="tab">💰 Budget & Expenses</button>
-      <button class="tab-btn" data-tab="tab-timeline" role="tab">⏳ Milestones & Run of Show</button>
-      <button class="tab-btn" data-tab="tab-vendors" role="tab">🤝 Vendor Hub</button>
-      <button class="tab-btn" data-tab="tab-creative" role="tab">💡 Creative Studio (Speeches & Invites)</button>
-      <button class="tab-btn" data-tab="tab-copilot" role="tab">🤖 Celebrio Co-Pilot</button>
+    <nav class="tabs-navigation" role="tablist" aria-label="Event Planning Modules">
+      <button class="tab-btn active" id="tab-btn-overview" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="tab-overview" tabindex="0">📋 Overview & Moodboard</button>
+      <button class="tab-btn" id="tab-btn-budget" role="tab" aria-selected="false" aria-controls="tab-budget" data-tab="tab-budget" tabindex="-1">💰 Budget & Expenses</button>
+      <button class="tab-btn" id="tab-btn-timeline" role="tab" aria-selected="false" aria-controls="tab-timeline" data-tab="tab-timeline" tabindex="-1">⏳ Milestones & Run of Show</button>
+      <button class="tab-btn" id="tab-btn-vendors" role="tab" aria-selected="false" aria-controls="tab-vendors" data-tab="tab-vendors" tabindex="-1">🤝 Vendor Hub</button>
+      <button class="tab-btn" id="tab-btn-creative" role="tab" aria-selected="false" aria-controls="tab-creative" data-tab="tab-creative" tabindex="-1">💡 Creative Studio (Speeches & Invites)</button>
+      <button class="tab-btn" id="tab-btn-copilot" role="tab" aria-selected="false" aria-controls="tab-copilot" data-tab="tab-copilot" tabindex="-1">🤖 Celebrio Co-Pilot</button>
     </nav>
 
     <!-- TAB 1: OVERVIEW & MOODBOARD -->
-    <div id="tab-overview" class="tab-content active">
+    <section id="tab-overview" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-overview" tabindex="0">
       <div class="cards-grid-2">
         <!-- Aesthetic Concept -->
         <div class="card">
@@ -135,16 +139,16 @@
             Loading theme concept...
           </p>
 
-          <h4 style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">
             Harmonized Color Palette (Click to Copy Hex)
           </h4>
-          <div class="palette-strip" id="overview-palette-container">
+          <div class="palette-strip" id="overview-palette-container" role="region" aria-label="Color Palette Swatches">
             <!-- Rendered via JS -->
           </div>
 
-          <div class="drink-card" id="overview-drink-card">
+          <div class="drink-card" id="overview-drink-card" aria-label="Signature Drink Recipe">
             <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.25rem;">
-              <span>🍸</span>
+              <span aria-hidden="true">🍸</span>
               <span class="drink-name" id="overview-drink-name">Signature Cocktail</span>
             </div>
             <div class="drink-recipe" id="overview-drink-recipe">Recipe loading...</div>
@@ -161,32 +165,32 @@
             Loading vision...
           </p>
 
-          <h4 style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.75rem;">
             Signature Decor Highlights
           </h4>
-          <ul id="overview-decor-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem; color: var(--text-main); margin-bottom: 1.5rem;">
+          <ul id="overview-decor-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem; color: var(--text-main); margin-bottom: 1.5rem;" aria-label="Decor Highlights List">
             <!-- Rendered via JS -->
           </ul>
 
           <div style="background: var(--bg-card-subtle); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
-            <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem;">
+            <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem;">
               🎵 Soundtrack & Music Vibe
             </div>
-            <div id="overview-music-vibe" style="font-size: 0.88rem; color: var(--text-main); font-weight: 500;">
+            <div id="overview-music-vibe" style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;">
               Music vibe description...
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- TAB 2: BUDGET & EXPENSES -->
-    <div id="tab-budget" class="tab-content">
+    <section id="tab-budget" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-budget" tabindex="0">
       <div class="card" style="margin-bottom: 1.5rem;">
         <div class="card-header">
           <div>
             <h3 class="card-title">💰 Dynamic Budget Allocation</h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
               Calculated automatically based on event type, guest count, and tier.
             </p>
           </div>
@@ -197,20 +201,20 @@
         </div>
 
         <!-- Visual Multi-segment Budget Bar -->
-        <div class="budget-overview-bar" id="budget-progress-bar" title="Budget Allocation Breakdown">
+        <div class="budget-overview-bar" id="budget-progress-bar" role="progressbar" aria-label="Budget Allocation Share" aria-valuemin="0" aria-valuemax="100">
           <!-- Rendered via JS -->
         </div>
 
         <div style="overflow-x: auto;">
-          <table class="budget-table">
+          <table class="budget-table" aria-label="Budget Line Items Table">
             <thead>
               <tr>
-                <th>Category</th>
-                <th>Target Allocation</th>
-                <th>Actual Spent</th>
-                <th>Share</th>
-                <th>Notes & Money-Saving AI Tips</th>
-                <th>Actions</th>
+                <th scope="col">Category</th>
+                <th scope="col">Target Allocation</th>
+                <th scope="col">Actual Spent</th>
+                <th scope="col">Share</th>
+                <th scope="col">Notes & Money-Saving AI Tips</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody id="budget-table-body">
@@ -219,23 +223,23 @@
           </table>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- TAB 3: TIMELINES & RUN OF SHOW -->
-    <div id="tab-timeline" class="tab-content">
+    <section id="tab-timeline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-timeline" tabindex="0">
       <div class="cards-grid-2">
         <!-- Milestone Countdown Checklist -->
         <div class="card">
           <div class="card-header">
             <div>
               <h3 class="card-title">📅 Phased Planning Countdown</h3>
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
                 Check off items as completed to advance your readiness score.
               </p>
             </div>
             <button id="btn-add-milestone" class="btn btn-outline btn-sm">+ Add Milestone</button>
           </div>
-          <div class="milestones-timeline" id="milestones-container">
+          <div class="milestones-timeline" id="milestones-container" role="list" aria-label="Planning Milestones List">
             <!-- Rendered via JS -->
           </div>
         </div>
@@ -245,55 +249,55 @@
           <div class="card-header">
             <div>
               <h3 class="card-title">⏱️ Day-Of Run of Show</h3>
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
                 Minute-by-minute execution timeline for vendors, hosts, and leads.
               </p>
             </div>
             <button id="btn-add-run-item" class="btn btn-outline btn-sm">+ Add Cues</button>
           </div>
-          <div class="run-of-show-list" id="run-of-show-container">
+          <div class="run-of-show-list" id="run-of-show-container" role="list" aria-label="Run of Show Cues">
             <!-- Rendered via JS -->
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- TAB 4: VENDOR HUB -->
-    <div id="tab-vendors" class="tab-content">
+    <section id="tab-vendors" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-vendors" tabindex="0">
       <div class="card" style="margin-bottom: 1.5rem;">
         <div class="card-header">
           <div>
             <h3 class="card-title">🤝 Vendor & Partner Directory</h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
               Track contracts, deposits, status, and generate AI inquiry emails.
             </p>
           </div>
           <button id="btn-add-vendor" class="btn btn-primary btn-sm">+ Add Vendor</button>
         </div>
 
-        <div class="vendors-grid" id="vendors-container">
+        <div class="vendors-grid" id="vendors-container" role="region" aria-label="Vendor Directory Cards">
           <!-- Rendered via JS -->
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- TAB 5: CREATIVE STUDIO (SPEECHES, INVITATIONS, ACTIVITIES) -->
-    <div id="tab-creative" class="tab-content">
+    <section id="tab-creative" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-creative" tabindex="0">
       <div class="cards-grid-2">
         <!-- AI Speech & Toast Generator -->
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">🎤 AI Speech & Toast Creator</h3>
-            <span class="brand-badge">Gemini</span>
+            <span class="brand-badge" aria-label="Gemini Model">Gemini</span>
           </div>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
             Draft heartfelt, hilarious, or inspiring toasts with pacing cues in seconds.
           </p>
 
-          <form id="form-speech-generator">
+          <form id="form-speech-generator" aria-label="Speech Generator Form">
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Speech Role</label>
+                <label for="speech-type" class="form-label">Speech Role</label>
                 <select id="speech-type" class="form-select">
                   <option value="best_man">Best Man Toast</option>
                   <option value="maid_of_honor">Maid of Honor Speech</option>
@@ -304,7 +308,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">Desired Tone</label>
+                <label for="speech-tone" class="form-label">Desired Tone</label>
                 <select id="speech-tone" class="form-select">
                   <option value="heartfelt and sentimental">Heartfelt & Sentimental</option>
                   <option value="hilarious and roast-style">Witty, Funny & Light Roast</option>
@@ -316,32 +320,32 @@
 
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Speaker Name</label>
-                <input type="text" id="speech-speaker" class="form-input" placeholder="e.g. Liam (Best Man)" required>
+                <label for="speech-speaker" class="form-label">Speaker Name</label>
+                <input type="text" id="speech-speaker" class="form-input" placeholder="e.g. Liam (Best Man)" required aria-required="true">
               </div>
               <div class="form-group">
-                <label class="form-label">Honoree / Subject</label>
-                <input type="text" id="speech-honoree" class="form-input" placeholder="e.g. Leo / Seraphina" required>
+                <label for="speech-honoree" class="form-label">Honoree / Subject</label>
+                <input type="text" id="speech-honoree" class="form-input" placeholder="e.g. Leo / Seraphina" required aria-required="true">
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label">Key Memories, Inside Jokes, or Themes</label>
+              <label for="speech-memories" class="form-label">Key Memories, Inside Jokes, or Themes</label>
               <textarea id="speech-memories" class="form-textarea" rows="2" placeholder="e.g. Met in college dorm, traveled to Japan together, always ordering late-night pizza..."></textarea>
             </div>
 
             <button type="submit" id="btn-generate-speech" class="btn btn-accent" style="width: 100%;">
-              <span>✨</span> Generate Toast with Gemini
+              <span aria-hidden="true">✨</span> Generate Toast with Gemini
             </button>
           </form>
 
           <!-- Speech Result Box -->
-          <div id="speech-result-box" style="margin-top: 1.25rem; display: none;">
+          <div id="speech-result-box" style="margin-top: 1.25rem; display: none;" aria-live="polite">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-              <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Generated Speech</span>
-              <button id="btn-copy-speech" class="btn btn-outline btn-sm">📋 Copy to Clipboard</button>
+              <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Generated Speech</span>
+              <button id="btn-copy-speech" class="btn btn-outline btn-sm" aria-label="Copy Generated Speech">📋 Copy to Clipboard</button>
             </div>
-            <div id="speech-text" style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); font-size: 0.92rem; line-height: 1.6; max-height: 320px; overflow-y: auto; white-space: pre-wrap;"></div>
+            <div id="speech-text" style="background: var(--bg-card-subtle); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border); font-size: 0.95rem; line-height: 1.6; max-height: 320px; overflow-y: auto; white-space: pre-wrap;" tabindex="0"></div>
           </div>
         </div>
 
@@ -349,46 +353,46 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">💌 Invitation Suite Copy</h3>
-            <button id="btn-copy-invite" class="btn btn-outline btn-sm">📋 Copy Card Copy</button>
+            <button id="btn-copy-invite" class="btn btn-outline btn-sm" aria-label="Copy Invitation Suite Copy">📋 Copy Card Copy</button>
           </div>
-          <div id="invite-preview-card" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border: 1px solid #fed7aa; border-radius: var(--radius-md); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+          <div id="invite-preview-card" style="background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border: 1px solid #fed7aa; border-radius: var(--radius-md); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;" aria-label="Invitation Preview Card">
             <div id="invite-headline" style="font-size: 1.15rem; font-weight: 800; color: #9a3412; letter-spacing: 0.05em; margin-bottom: 0.5rem; text-transform: uppercase;">
               Headline Loading...
             </div>
             <p id="invite-opening" style="font-size: 0.95rem; color: #c2410c; margin-bottom: 0.85rem; font-style: italic;">
               Opening loading...
             </p>
-            <p id="invite-details" style="font-size: 0.9rem; color: #7c2d12; margin-bottom: 0.85rem; font-weight: 500;">
+            <p id="invite-details" style="font-size: 0.92rem; color: #7c2d12; margin-bottom: 0.85rem; font-weight: 500;">
               Details loading...
             </p>
-            <div id="invite-rsvp" style="font-size: 0.85rem; color: #9a3412; font-weight: 600; border-top: 1px dashed #fdba74; padding-top: 0.75rem;">
+            <div id="invite-rsvp" style="font-size: 0.88rem; color: #9a3412; font-weight: 600; border-top: 1px dashed #fdba74; padding-top: 0.75rem;">
               RSVP info...
             </div>
-            <div id="invite-dress-code" style="font-size: 0.78rem; color: #b45309; margin-top: 0.35rem;">
+            <div id="invite-dress-code" style="font-size: 0.82rem; color: #b45309; margin-top: 0.35rem;">
               Dress Code Advice...
             </div>
           </div>
 
           <h3 class="card-title" style="margin-bottom: 0.85rem;">🎉 Signature Games & Activities</h3>
-          <div id="activities-container" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div id="activities-container" style="display: flex; flex-direction: column; gap: 0.85rem;" role="region" aria-label="Signature Activities List">
             <!-- Rendered via JS -->
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- TAB 6: CELEBRIO CO-PILOT AI -->
-    <div id="tab-copilot" class="tab-content">
-      <div class="copilot-container">
+    <section id="tab-copilot" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-copilot" tabindex="0">
+      <div class="copilot-container" aria-label="Celebrio Co-Pilot Chat Interface">
         <!-- Chat History -->
-        <div class="copilot-messages" id="copilot-messages">
+        <div class="copilot-messages" id="copilot-messages" role="log" aria-live="polite" aria-relevant="additions">
           <div class="chat-bubble chat-bubble-ai">
             👋 <strong>Welcome to Celebrio Co-Pilot!</strong> I'm your dedicated GenAI event director. I have full context of your event plan. Ask me to refine schedules, negotiate vendor quotes, optimize budget allocations, suggest emergency contingency plans, or generate customized games!
           </div>
         </div>
 
         <!-- Quick Prompt Chips -->
-        <div class="chat-quick-chips">
+        <div class="chat-quick-chips" role="region" aria-label="Quick Prompt Suggestions">
           <button class="chip" data-prompt="Suggest 3 clever ways to cut $1,500 from this budget without hurting guest experience">💡 Cut $1,500 from Budget</button>
           <button class="chip" data-prompt="Review our timeline for potential bottlenecks and suggest fixes">⏱️ Audit Timeline Conflicts</button>
           <button class="chip" data-prompt="Draft a polite email to the venue requesting early access for florist setup">✉️ Early Venue Access Email</button>
@@ -397,32 +401,33 @@
         </div>
 
         <!-- Input Row -->
-        <form id="copilot-form" class="chat-input-row">
-          <input type="text" id="copilot-input" class="chat-input" placeholder="Ask Celebrio AI anything about your event plan..." autocomplete="off" required>
-          <button type="submit" id="btn-copilot-send" class="btn btn-primary">
-            <span>Send</span> ➔
+        <form id="copilot-form" class="chat-input-row" aria-label="Chat input form">
+          <label for="copilot-input" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Chat message</label>
+          <input type="text" id="copilot-input" class="chat-input" placeholder="Ask Celebrio AI anything about your event plan..." autocomplete="off" required aria-required="true">
+          <button type="submit" id="btn-copilot-send" class="btn btn-primary" aria-label="Send Message">
+            <span>Send</span> <span aria-hidden="true">➔</span>
           </button>
         </form>
       </div>
-    </div>
+    </section>
 
   </main>
 
   <!-- MODAL: AI EVENT CREATION WIZARD -->
-  <dialog id="modal-wizard" class="custom-modal">
+  <dialog id="modal-wizard" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-wizard-title">
     <div class="modal-header">
-      <h3 class="modal-title">✨ GenAI Event Planning Wizard</h3>
-      <button class="modal-close-btn" data-close-modal="modal-wizard">&times;</button>
+      <h3 class="modal-title" id="modal-wizard-title">✨ GenAI Event Planning Wizard</h3>
+      <button class="modal-close-btn" data-close-modal="modal-wizard" aria-label="Close Wizard Dialog">&times;</button>
     </div>
-    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem;">
       Enter your celebration parameters, and Gemini will synthesize a full master plan including budgets, timelines, vendor checklists, decor concepts, and bespoke ideas!
     </p>
 
-    <form id="form-wizard">
+    <form id="form-wizard" aria-label="Event Creation Wizard Form">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Celebration Type</label>
-          <select id="wiz-event-type" class="form-select" required>
+          <label for="wiz-event-type" class="form-label">Celebration Type</label>
+          <select id="wiz-event-type" class="form-select" required aria-required="true">
             <option value="wedding">💍 Luxury / Rustic Wedding</option>
             <option value="birthday">🎂 Milestone Birthday Celebration</option>
             <option value="community">🌳 Community Gathering / Festival / Gala</option>
@@ -432,92 +437,93 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Event Title</label>
-          <input type="text" id="wiz-event-title" class="form-input" placeholder="e.g. Maya & Alex's Coastal Wedding" required>
+          <label for="wiz-event-title" class="form-label">Event Title</label>
+          <input type="text" id="wiz-event-title" class="form-input" placeholder="e.g. Maya & Alex's Coastal Wedding" required aria-required="true">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Event Date</label>
-          <input type="date" id="wiz-event-date" class="form-input" required>
+          <label for="wiz-event-date" class="form-label">Event Date</label>
+          <input type="date" id="wiz-event-date" class="form-input" required aria-required="true">
         </div>
         <div class="form-group">
-          <label class="form-label">Location / Setting</label>
-          <input type="text" id="wiz-location" class="form-input" placeholder="e.g. Big Sur, CA / Central Park" required>
+          <label for="wiz-location" class="form-label">Location / Setting</label>
+          <input type="text" id="wiz-location" class="form-input" placeholder="e.g. Big Sur, CA / Central Park" required aria-required="true">
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Guest Count</label>
-          <input type="number" id="wiz-guest-count" class="form-input" min="5" max="5000" value="85" required>
+          <label for="wiz-guest-count" class="form-label">Guest Count</label>
+          <input type="number" id="wiz-guest-count" class="form-input" min="5" max="50000" value="85" required aria-required="true">
         </div>
         <div class="form-group">
-          <label class="form-label">Total Budget</label>
+          <label for="wiz-budget" class="form-label">Total Budget</label>
           <div style="display: flex; gap: 0.5rem;">
-            <select id="wiz-currency" class="form-select" style="width: 80px;">
+            <label for="wiz-currency" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Currency</label>
+            <select id="wiz-currency" class="form-select" style="width: 85px;" aria-label="Select Currency">
               <option value="$">$ USD</option>
               <option value="€">€ EUR</option>
               <option value="£">£ GBP</option>
               <option value="₹">₹ INR</option>
               <option value="C$">C$ CAD</option>
             </select>
-            <input type="number" id="wiz-budget" class="form-input" min="100" max="1000000" value="18000" required>
+            <input type="number" id="wiz-budget" class="form-input" min="100" max="10000000" value="18000" required aria-required="true">
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Aesthetic Vibe & Style</label>
-        <input type="text" id="wiz-vibe" class="form-input" placeholder="e.g. Boho chic with sunset oranges and acoustic folk, or Black-tie elegance" required>
+        <label for="wiz-vibe" class="form-label">Aesthetic Vibe & Style</label>
+        <input type="text" id="wiz-vibe" class="form-input" placeholder="e.g. Boho chic with sunset oranges and acoustic folk, or Black-tie elegance" required aria-required="true">
       </div>
 
       <div class="form-group">
-        <label class="form-label">Special Notes or Traditions</label>
+        <label for="wiz-notes" class="form-label">Special Notes or Traditions</label>
         <textarea id="wiz-notes" class="form-textarea" rows="2" placeholder="e.g. Late night woodfired pizza truck, vegan dessert options, outdoor firepits..."></textarea>
       </div>
 
       <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
         <button type="button" class="btn btn-outline" data-close-modal="modal-wizard">Cancel</button>
         <button type="submit" id="wiz-submit-btn" class="btn btn-primary">
-          <span>✨</span> Generate Complete Plan with Gemini
+          <span aria-hidden="true">✨</span> Generate Complete Plan with Gemini
         </button>
       </div>
     </form>
   </dialog>
 
   <!-- MODAL: VENDOR INQUIRY / RFP GENERATOR -->
-  <dialog id="modal-rfp" class="custom-modal">
+  <dialog id="modal-rfp" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-rfp-title">
     <div class="modal-header">
-      <h3 class="modal-title">✉️ AI Vendor Inquiry & RFP Generator</h3>
-      <button class="modal-close-btn" data-close-modal="modal-rfp">&times;</button>
+      <h3 class="modal-title" id="modal-rfp-title">✉️ AI Vendor Inquiry & RFP Generator</h3>
+      <button class="modal-close-btn" data-close-modal="modal-rfp" aria-label="Close RFP Dialog">&times;</button>
     </div>
-    <form id="form-rfp">
+    <form id="form-rfp" aria-label="Vendor RFP Form">
       <input type="hidden" id="rfp-vendor-id">
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Vendor Category</label>
+          <label for="rfp-category" class="form-label">Vendor Category</label>
           <input type="text" id="rfp-category" class="form-input" readonly>
         </div>
         <div class="form-group">
-          <label class="form-label">Vendor Business Name</label>
-          <input type="text" id="rfp-vendor-name" class="form-input" required>
+          <label for="rfp-vendor-name" class="form-label">Vendor Business Name</label>
+          <input type="text" id="rfp-vendor-name" class="form-input" required aria-required="true">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Specific Inquiries to Include</label>
+        <label for="rfp-specifics" class="form-label">Specific Inquiries to Include</label>
         <input type="text" id="rfp-specifics" class="form-input" placeholder="e.g. Ask for portfolio link, tasting policy, and deposit terms">
       </div>
 
       <button type="button" id="btn-generate-rfp-ai" class="btn btn-accent" style="width: 100%; margin-bottom: 1rem;">
-        <span>✨</span> Draft Inquiry Letter with Gemini
+        <span aria-hidden="true">✨</span> Draft Inquiry Letter with Gemini
       </button>
 
-      <div id="rfp-result-wrap" style="display: none;">
+      <div id="rfp-result-wrap" style="display: none;" aria-live="polite">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-          <label class="form-label" style="margin: 0;">Drafted Message</label>
+          <label for="rfp-result-text" class="form-label" style="margin: 0;">Drafted Message</label>
           <button type="button" id="btn-copy-rfp" class="btn btn-outline btn-sm">📋 Copy Email</button>
         </div>
         <textarea id="rfp-result-text" class="form-textarea" rows="8"></textarea>
@@ -526,22 +532,22 @@
   </dialog>
 
   <!-- MODAL: SETTINGS & MODEL SELECTION -->
-  <dialog id="modal-settings" class="custom-modal">
+  <dialog id="modal-settings" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-settings-title">
     <div class="modal-header">
-      <h3 class="modal-title">⚙️ Settings & Gemini Configuration</h3>
-      <button class="modal-close-btn" data-close-modal="modal-settings">&times;</button>
+      <h3 class="modal-title" id="modal-settings-title">⚙️ Settings & Gemini Configuration</h3>
+      <button class="modal-close-btn" data-close-modal="modal-settings" aria-label="Close Settings Dialog">&times;</button>
     </div>
-    <form id="form-settings">
+    <form id="form-settings" aria-label="Settings Form">
       <div class="form-group">
-        <label class="form-label">Custom Gemini API Key (Optional)</label>
+        <label for="settings-api-key" class="form-label">Custom Gemini API Key (Optional)</label>
         <input type="password" id="settings-api-key" class="form-input" placeholder="Leave blank to use pre-configured environment key">
-        <small style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">
+        <small style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">
           Your key is saved locally in your browser's localStorage and never transmitted elsewhere.
         </small>
       </div>
 
       <div class="form-group">
-        <label class="form-label">Gemini Model</label>
+        <label for="settings-model" class="form-label">Gemini Model</label>
         <select id="settings-model" class="form-select">
           <option value="gemini-3.5-flash">Gemini 3.5 Flash (Recommended: Fast & Balanced)</option>
           <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite (Ultra Fast)</option>
@@ -551,7 +557,7 @@
 
       <div class="form-group" style="padding-top: 1rem; border-top: 1px solid var(--border);">
         <label class="form-label">Reset Sample Data</label>
-        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.5rem;">
           Reload the default showcase events (Tuscan Wedding, Neon Arcade Birthday, Community Harvest Festival).
         </p>
         <button type="button" id="btn-reset-sample-data" class="btn btn-outline btn-sm">
@@ -566,8 +572,8 @@
     </form>
   </dialog>
 
-  <!-- Toast Container -->
-  <div id="toast-container" aria-live="polite"></div>
+  <!-- Live Toast Status Container -->
+  <div id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <!-- Scripts -->
   <script src="js/sample-data.js"></script>

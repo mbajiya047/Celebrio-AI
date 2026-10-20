@@ -43,6 +43,12 @@
 7. 🖨️ **Print & PDF Event Master Binder**:
    - Custom `@media print` stylesheet that exports the entire event dossier into a clean, professional PDF binder ready for coordinators and vendors on the day of the event.
 
+8. 🛡️ **Enterprise Security & Testing Suite**:
+   - **Full Automated Testing**: Comprehensive test suite covering validation, security headers, rate limiting, and performance (`npm test`).
+   - **Helmet & Rate Limiting**: Production-grade Content Security Policy (CSP), DDoS protection, and XSS sanitization.
+   - **WCAG 2.1 AAA Accessibility**: Full ARIA roles, keyboard navigation (arrow keys across tabs, Enter/Space on swatches), skip-to-content links, and high-contrast color ratios.
+   - **Continuous Integration (CI)**: Automated GitHub Actions pipeline (`.github/workflows/ci.yml`) executing tests and security audits on every commit.
+
 ---
 
 ## 🏗️ Architecture & Technology Stack
