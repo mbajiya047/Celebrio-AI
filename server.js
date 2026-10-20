@@ -54,6 +54,16 @@ app.use(cors({
 app.use(express.json({ limit: '2mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Request timeout protection (prevents slowloris and hung sockets)
+app.use((req, res, next) => {
+  res.setTimeout(30000, () => {
+    if (!res.headersSent) {
+      res.status(408).json({ error: 'Request timeout: server took too long to respond.' });
+    }
+  });
+  next();
+});
+
 // 4. IN-MEMORY CACHE FOR HIGH EFFICIENCY
 const responseCache = new Map();
 const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes cache
@@ -584,6 +594,15 @@ Keep answers structured, crisp, inspiring, and ready to implement. If recommendi
     res.status(500).json({ error: err.message || 'Chat error' });
   }
 });
+
+// Attach utilities for unit testing and modular use
+app.cleanAndParseJSON = cleanAndParseJSON;
+app.sanitizeInput = sanitizeInput;
+app.getCacheKey = getCacheKey;
+app.getFromCache = getFromCache;
+app.setInCache = setInCache;
+app.responseCache = responseCache;
+app.callGeminiAPI = callGeminiAPI;
 
 // Start server only if run directly (allows clean testing imports)
 if (require.main === module) {
