@@ -1,7 +1,14 @@
-// Celebrio AI - Main Application Logic
+/**
+ * @fileoverview Celebrio AI - Primary Frontend Application Controller
+ * Handles state synchronization, responsive view rendering, ARIA tab management, and DOM bindings.
+ * @module app
+ */
 
+/** @type {Array<import('../../types').EventPlan>} */
 let allEvents = [];
+/** @type {import('../../types').EventPlan|null} */
 let activeEvent = null;
+/** @type {Array<{role: string, text: string}>} */
 let chatHistory = [];
 
 // Initialize on DOM Ready
@@ -12,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderApp();
 });
 
-// Load events from LocalStorage or default to sample data
+/**
+ * Loads persisted events from browser localStorage or initializes with default showcase events.
+ */
 function loadEventsFromStorage() {
   const saved = localStorage.getItem('celebrio_events');
   if (saved) {

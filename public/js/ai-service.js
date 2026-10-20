@@ -1,9 +1,22 @@
-// Celebrio AI Service Client
+/**
+ * @fileoverview Celebrio AI Frontend Client Service
+ * Manages communication with backend Gemini AI endpoints and localStorage settings.
+ * @module AIService
+ */
+
 const AIService = {
+  /**
+   * Retrieves user-defined custom API key from localStorage.
+   * @returns {string} Custom API key or empty string
+   */
   getCustomApiKey() {
     return localStorage.getItem('celebrio_custom_api_key') || '';
   },
 
+  /**
+   * Persists custom API key in browser storage.
+   * @param {string} key - API Key string
+   */
   setCustomApiKey(key) {
     if (key) {
       localStorage.setItem('celebrio_custom_api_key', key.trim());
@@ -12,14 +25,26 @@ const AIService = {
     }
   },
 
+  /**
+   * Gets preferred model identifier.
+   * @returns {string} Model name (e.g., 'gemini-3.5-flash')
+   */
   getSelectedModel() {
     return localStorage.getItem('celebrio_selected_model') || 'gemini-3.5-flash';
   },
 
+  /**
+   * Sets preferred model identifier.
+   * @param {string} model - Model identifier
+   */
   setSelectedModel(model) {
     localStorage.setItem('celebrio_selected_model', model);
   },
 
+  /**
+   * Constructs HTTP request headers including optional custom API key.
+   * @returns {Record<string, string>} Header map
+   */
   getHeaders() {
     const headers = { 'Content-Type': 'application/json' };
     const customKey = this.getCustomApiKey();
@@ -29,35 +54,38 @@ const AIService = {
     return headers;
   },
 
-  // Generate a complete event plan
+  /**
+   * Sends parameters to /api/generate-plan to synthesize a full celebration plan.
+   * @param {Object} formData - Event parameters
+   * @returns {Promise<Object>} Structured event plan object
+   * @throws {Error} If generation fails
+   */
   async generateEventPlan(formData) {
     const payload = {
       ...formData,
       model: this.getSelectedModel()
     };
 
-    try {
-      const response = await fetch('/api/generate-plan', {
-        method: 'POST',
-        headers: this.getHeaders(),
-        body: JSON.stringify(payload)
-      });
+    const response = await fetch('/api/generate-plan', {
+      method: 'POST',
+      headers: this.getHeaders(),
+      body: JSON.stringify(payload)
+    });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server responded with ${response.status}`);
-      }
-
-      const result = await response.json();
-      return result.data;
-    } catch (err) {
-      console.warn('Backend plan generation error, checking fallback:', err);
-      // If server failed, throw with actionable message
-      throw new Error(`Generation error: ${err.message}`);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Server responded with ${response.status}`);
     }
+
+    const result = await response.json();
+    return result.data;
   },
 
-  // Generate a speech or toast
+  /**
+   * Generates a tailored speech or toast.
+   * @param {Object} params - Speech parameters
+   * @returns {Promise<string>} Drafted speech text
+   */
   async generateSpeech(params) {
     const payload = {
       ...params,
@@ -79,7 +107,11 @@ const AIService = {
     return result.speech;
   },
 
-  // Generate a vendor RFP inquiry
+  /**
+   * Generates a formal vendor inquiry email and RFP checklist.
+   * @param {Object} params - Vendor details and specific requirements
+   * @returns {Promise<string>} Drafted RFP inquiry email
+   */
   async generateVendorRFP(params) {
     const payload = {
       ...params,
@@ -101,7 +133,13 @@ const AIService = {
     return result.inquiry;
   },
 
-  // Conversational Co-pilot chat
+  /**
+   * Sends conversational message with active event context to Celebrio Co-Pilot.
+   * @param {string} message - User chat message
+   * @param {Object} eventContext - Active celebration state
+   * @param {Array<{role: string, text: string}>} [history=[]] - Prior turn history
+   * @returns {Promise<string>} AI assistant response text
+   */
   async chatWithCopilot(message, eventContext, history = []) {
     const payload = {
       message,
